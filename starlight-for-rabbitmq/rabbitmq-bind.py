@@ -13,16 +13,20 @@ exchange = sys.argv[1]
 queue = sys.argv[2]
 routing_key = sys.argv[3]
 
-connection = pika.BlockingConnection(get_connection_params(sys.argv))
-
-channel = connection.channel()
-
 try:
+    print ("Binding exchange: exchange=" + exchange + " queue=" + queue + " routing_key=" + routing_key)
+
+    connection = pika.BlockingConnection(get_connection_params(sys.argv))
+    channel = connection.channel()
+
     channel.exchange_declare(exchange=exchange)
     print("exchange declared")
+
     channel.queue_declare(queue=queue)
     print("queue declared")
+
     channel.queue_bind(exchange=exchange, queue=queue, routing_key=routing_key)
     print("queue bound")
+
 finally:
     connection.close()
