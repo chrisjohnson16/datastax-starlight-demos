@@ -6,7 +6,7 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-ma
 ```
 
 ### Bind, publish, and consume using RabbitMQ
-Bind to 'test-queue' to an 'direct' exchange with 'test-key' routing key.
+Bind 'test-queue' to a 'direct' exchange with 'test-key' routing key.
 
 ```
 python3 rabbitmq-bind.py direct test-queue test-key
@@ -17,7 +17,6 @@ Start a consumer for this exchange and routing key.
 ```
 python3 rabbitmq-consume.py direct test-queue test-key
 ```
-
 
 Start a publisher for this queue and start publishing messages.
 ```
