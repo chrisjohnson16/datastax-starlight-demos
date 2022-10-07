@@ -5,8 +5,8 @@ import ssl
 import pika
 from rabbitmq_get_con_params import *
 
-if len(sys.argv) not in [4, 8]:
-    print("usage: python rabbitmq-publish.py <exchange_name> <queue_name> <routing_key> [<port> <host> <virtual_host> <toke>]")
+if len(sys.argv) not in [4, 5] or (len(sys.argv) == 5 and sys.argv[4] != "--astra") :
+    print("usage: python rabbitmq-publish.py <exchange_name> <queue_name> <routing_key> [--astra]")
     sys.exit(-1)
 
 exchange = sys.argv[1]

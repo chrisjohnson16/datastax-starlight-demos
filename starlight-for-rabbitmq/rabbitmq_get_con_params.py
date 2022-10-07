@@ -1,11 +1,11 @@
 import ssl
 import pika
+from rabbitmq import *
 
 def get_connection_params(args):
     params = ""
-    port = "5672"
 
-    if len(args) == 8:
+    if len(args) == 5:
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         context.verify_mode = ssl.CERT_NONE
         context.check_hostname = False
@@ -13,13 +13,13 @@ def get_connection_params(args):
         ssl_options = pika.SSLOptions(context)
 
         params = pika.ConnectionParameters(
-            port=args[4],
-            host=args[5],
-            virtual_host=args[6],
-            credentials=pika.PlainCredentials("", args[7]),
+            port=port,
+            host=host,
+            virtual_host=virtual_host,
+            credentials=pika.PlainCredentials("", password),
             ssl_options=ssl_options)
 
     else:
-        params = pika.ConnectionParameters(port=port)
+        params = pika.ConnectionParameters(port=5672)
 
     return params
