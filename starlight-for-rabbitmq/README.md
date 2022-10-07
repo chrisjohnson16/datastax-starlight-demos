@@ -53,7 +53,7 @@ python3 rabbitmq-consume.py test-queue
 ```
 
 ### Using Starlight for RabbitMQ on Astra Streaming
-To use S4R on [Astra Streaming](http://astra.datastax.com) you'll need to create a free account and then create a streaming tenant by clicking the `Create Stream` button.  Once this is done, go to your streaming tenant and click the `Connect` tab and then the `RabbitMQ` link.  There you will see connection details needed to interact with S4R on Astra Streaming.  Download this file into the project directory.  You'll need to rename the file to rabbitmq.py and wrap the values in quotes.
+To use S4R on [Astra Streaming](http://astra.datastax.com) you'll need to create a free account and then create a streaming tenant by clicking the `Create Stream` button.  Once this is done, go to your streaming tenant and click the `Connect` tab and then the `RabbitMQ` link.  There you will see connection details needed to interact with S4R on Astra Streaming.  Download this file into the project directory.  You'll need to rename the file to `rabbitmq.py` and wrap the values in quotes.
 
 Run the same three python command using the connection details you just retreived.
 
