@@ -1,34 +1,57 @@
-Running Rabbit
+Single RabbitMQ
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,send,single
 
-docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-management
-
-
-
-Direct with Rabbit
-
-java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar rabbit receive
-
-java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar rabbit send
-
-Direct with Pulsar
-
-java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar pulsar receive
-
-java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar pulsar send
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,receive,single
 
 
-Fanout with Rabbit
+Single Pulsar
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,send,single --location=pulsar
 
-java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout rabbit receive demo-queue-fanout-2
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,receive,single --location=pulsar
 
-java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout rabbit receive demo-queue-fanout-1
+----------
 
-java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout rabbit send -
+Single Fanout RabbitMQ
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,send,single
 
-Fanout with Pulsar
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,single --queue=demo-fanout-queue-1
 
-java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout pulsar receive demo-queue-fanout-2
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,single --queue=demo-fanout-queue-2
 
-java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout pulsar receive demo-queue-fanout-1
+Single Fanout Pulsar
 
-java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout pulsar send -
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,send,single --location=pulsar
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,single --location=pulsar --queue=demo-fanout-queue-1
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,single --location=pulsar --queue=demo-fanout-queue-2
+
+----------
+
+Batch RabbitMQ
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,send,batch
+
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,receive,batch
+
+
+Batch Pulsar
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,send,batch --location=pulsar
+
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,receive,batch --location=pulsar
+
+----------
+
+Batch Fanout RabbitMQ
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,send,batch
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,batch --queue=demo-fanout-queue-1
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,batch --queue=demo-fanout-queue-2
+
+
+Batch Fanout Pulsar
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,send,batch --location=pulsar
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,batch --location=pulsar --queue=demo-fanout-queue-1
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,batch --location=pulsar --queue=demo-fanout-queue-2
