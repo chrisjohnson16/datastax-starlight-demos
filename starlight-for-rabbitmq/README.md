@@ -7,14 +7,13 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-ma
 
 ## Java Demo
 Change to the `java` directory, and follow the steps found in the `script.txt` file.
-```
 
 ## Python Demo
 
 ### Bind, publish, and consume using RabbitMQ
+
 Follow these steps from within the `python` directory.  
 
-```
 Bind 'test-queue' to a 'direct' exchange with 'test-key' routing key.
 
 ```
