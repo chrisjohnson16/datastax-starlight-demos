@@ -18,7 +18,7 @@ try:
     connection = pika.BlockingConnection(get_connection_params(sys.argv))
     channel = connection.channel()
 
-    channel.exchange_declare(exchange=exchange)
+    channel.exchange_declare(exchange=exchange, exchange_type="direct")
     print("exchange declared")
 
     channel.queue_declare(queue=queue)
@@ -26,6 +26,7 @@ try:
 
     channel.queue_bind(exchange=exchange, queue=queue, routing_key=routing_key)
     print("queue bound")
-
+except Exception as e: 
+    print(e)
 finally:
     connection.close()

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	   xmlns:context="http://www.springframework.org/schema/context"       
+       xsi:schemaLocation="http://www.springframework.org/schema/rabbit
+           https://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+           http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <context:property-placeholder/>
+    
+    <!-- Runtime Properties -->
+
+	
+	<bean id="retryTemplate" class="org.springframework.retry.support.RetryTemplate">
+		<property name="retryPolicy" ref="retryPolicy" />
+	</bean>	
+	
+	<bean id="retryPolicy" class="org.springframework.retry.policy.SimpleRetryPolicy">
+		<constructor-arg name="maxAttempts" value="5" />
+	</bean>	
+		
+	<bean id="retryAdvice" class="org.springframework.amqp.rabbit.config.StatelessRetryOperationsInterceptorFactoryBean">	
+		<property name="retryOperations" ref="retryTemplate"/>
+	</bean>	
+				
+	<beans profile="receive">				
+		<rabbit:listener-container  connection-factory="connectionFactory" type="direct" advice-chain="retryAdvice">
+		    <rabbit:listener queues="queue" ref="demoMessageListener" admin="admin"/>	
+		</rabbit:listener-container>	
+	</beans>
+	  
+</beans>

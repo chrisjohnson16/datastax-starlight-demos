@@ -1,0 +1,34 @@
+Running Rabbit
+
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-management
+
+
+
+Direct with Rabbit
+
+java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar rabbit receive
+
+java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar rabbit send
+
+Direct with Pulsar
+
+java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar pulsar receive
+
+java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar pulsar send
+
+
+Fanout with Rabbit
+
+java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout rabbit receive demo-queue-fanout-2
+
+java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout rabbit receive demo-queue-fanout-1
+
+java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout rabbit send -
+
+Fanout with Pulsar
+
+java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout pulsar receive demo-queue-fanout-2
+
+java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout pulsar receive demo-queue-fanout-1
+
+java -jar target/s4r-demo-0.0.1-SNAPSHOT.jar fanout pulsar send -
