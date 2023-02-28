@@ -1,11 +1,21 @@
 # Starlight for RabbitMQ Demo
-text
-### Running RabbitMQ.
+
+### Running RabbitMQ
 ```
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-management
 ```
 
+## Java Demo
+Change to the `java` directory, and follow the steps found in the `script.txt` file.
+
+To connect to a Pulsar instance, you will need to update the `application.properties` file with details on where.
+
+## Python Demo
+
 ### Bind, publish, and consume using RabbitMQ
+
+Follow these steps from within the `python` directory.  
+
 Bind 'test-queue' to a 'direct' exchange with 'test-key' routing key.
 
 ```
