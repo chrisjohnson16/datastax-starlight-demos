@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	   xmlns:context="http://www.springframework.org/schema/context"       
+       xsi:schemaLocation="http://www.springframework.org/schema/rabbit
+           https://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+           http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <context:property-placeholder/>
+    
+	<!-- Controlling where to connect for messaging -->
+    <bean name="location" class="java.lang.String">
+        <constructor-arg value="${location:#{''}}" />
+    </bean>
+
+    <bean name="uri" class="java.net.URI">
+    	<constructor-arg name="str" value="#{location == 'pulsar' ? '${demo.env.pulsar}' : '${demo.env.rabbit}'}"/>
+    </bean>
+
+    <bean id="connectionFactory" class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+		<constructor-arg value="#{uri}"/>
+    </bean>
+
+	<rabbit:admin id="admin" connection-factory="connectionFactory" />   
+
+	<!-- Configure demo to send individual messages -->
+    <beans profile="single">
+		<rabbit:template id="rabbitTemplate" connection-factory="connectionFactory"/> 
+	</beans>	
+
+	<!-- Configure demo to batch messages -->
+    <beans profile="batch">
+		<import resource="beans-batch.xml" />    
+	</beans>	
+
+	<!-- Configure demo with a direct exchange -->
+	<beans profile="direct">
+		<import resource="beans-direct.xml" />
+	</beans>
+
+	<!-- Configure demo with a fanout exchange -->
+	<beans profile="fanout">		
+		<import resource="beans-fanout.xml" />
+    </beans>
+
+	<beans>
+		<import resource="beans-retry.xml" />
+	</beans>
+
+    <!-- Main Demo Config for Running as a Sender -->
+	<beans profile="send">
+	    <bean id="demo" class="com.datastax.demo.S4RDemoApplication.Demo">
+			<property name="location" ref="location"/>
+			<property name="queueName" ref="queueName"/>
+	    	<property name="sender" ref="sender"/>    
+	    	<property name="environment" ref="environment"/>
+	    	<property name="exchange" ref="exchange"/>
+	    </bean>
+	</beans>    
+
+
+    <!-- Main Demo Config for Running as a Receiver -->
+	<beans profile="receive">
+	
+	    <bean id="demo" class="com.datastax.demo.S4RDemoApplication.Demo">
+			<property name="location" ref="location"/>
+			<property name="queueName" ref="queueName"/>
+	    	<property name="environment" ref="environment"/>
+	    </bean>
+
+		<!-- Configure a listener, retry template and policy for redelivery -->
+		<bean name="demoMessageListener" class="com.datastax.demo.DemoMessageListener">
+			<constructor-arg name="queue" ref="queue"/>
+		</bean> 
+		
+	</beans>
+		  
+</beans>

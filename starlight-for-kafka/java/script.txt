@@ -1,0 +1,57 @@
+Single RabbitMQ
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,send,single
+
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,receive,single
+
+
+Single Pulsar
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,send,single --location=pulsar
+
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,receive,single --location=pulsar
+
+----------
+
+Single Fanout RabbitMQ
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,send,single
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,single --queue=demo-fanout-queue-1
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,single --queue=demo-fanout-queue-2
+
+Single Fanout Pulsar
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,send,single --location=pulsar
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,single --location=pulsar --queue=demo-fanout-queue-1
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,single --location=pulsar --queue=demo-fanout-queue-2
+
+----------
+
+Batch RabbitMQ
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,send,batch
+
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,receive,batch
+
+
+Batch Pulsar
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,send,batch --location=pulsar
+
+java -jar target/s4r-demo.jar --spring.profiles.active=direct,receive,batch --location=pulsar
+
+----------
+
+Batch Fanout RabbitMQ
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,send,batch
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,batch --queue=demo-fanout-queue-1
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,batch --queue=demo-fanout-queue-2
+
+
+Batch Fanout Pulsar
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,send,batch --location=pulsar
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,batch --location=pulsar --queue=demo-fanout-queue-1
+
+java -jar target/s4r-demo.jar --spring.profiles.active=fanout,receive,batch --location=pulsar --queue=demo-fanout-queue-2
