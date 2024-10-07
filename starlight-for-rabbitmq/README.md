@@ -58,8 +58,8 @@ java -jar starlight-rabbitmq-2.10.0.1-jar-with-dependencies.jar -c starlight.con
 Run through the same three python commands again.
 ```
 python3 rabbitmq-bind.py direct test-queue test-key
-python3 rabbitmq-publish.py direct test-key
-python3 rabbitmq-consume.py test-queue
+python3 rabbitmq-publish.py direct test-queue test-key
+python3 rabbitmq-consume.py direct test-queue test-key
 ```
 
 ### Using Starlight for RabbitMQ on Astra Streaming
@@ -69,7 +69,7 @@ Run the same three python command using the connection details you just retreive
 
 ```
 python3 rabbitmq-bind.py direct test-queue test-key --astra
-python3 rabbitmq-publish.py direct test-key --astra
-python3 rabbitmq-consume.py test-queue --astra
+python3 rabbitmq-publish.py direct test-queue test-key --astra
+python3 rabbitmq-consume.py direct test-queue test-key --astra
 ```
 
